@@ -153,7 +153,7 @@ public static class MetricsCalculator
     /// <remarks>
     /// A -Abstracción- = (número de interfaces + clases abstractas + records
     /// abstractos + tipos genéricos extensibles) / total de tipos.
-    /// 
+    ///
     /// Se consideran tipos abstractos o extensibles:
     /// <ul>
     /// <li>Interfaces: contrato sin implementación, abstractas por definición.</li>
@@ -163,7 +163,7 @@ public static class MetricsCalculator
     /// <li>Tipos genéricos -con parámetros de tipo- son extensibles vía
     /// parametrización.</li>
     /// </ul>
-    /// 
+    ///
     /// Ejemplos:
     /// <ul>
     /// <li>A = 0: Componente totalmente concreto -solo clases y records
@@ -173,7 +173,7 @@ public static class MetricsCalculator
     /// <li>A = 0.5: Componente equilibrado con mezcla de tipos abstractos y
     /// concretos.</li>
     /// </ul>
-    /// 
+    ///
     /// La abstracción es un indicador de flexibilidad: cuanto más abstracto,
     /// más fácil de extender. Los tipos genéricos aportan extensibilidad
     /// mediante parametrización de tipos.
@@ -212,52 +212,14 @@ public static class MetricsCalculator
             return true;
 
         // Clases abstractas
-        if (type is Class c && c.IsAbstract)
+        if (type is Class c && c.IsAbstract == true)
             return true;
 
         // Tipos genéricos son extensibles por parametrización
         if (type.GenericParameters.Count > 0)
             return true;
 
-        // Records abstractos y otros tipos abstractos
-        if (type.IsAbstract)
-            return true;
-
         return false;
-    }
-
-    /// <summary>
-    /// Calcula la abstracción (A) de un componente considerando solo las
-    /// formas clásicas de abstracción.
-    /// </summary>
-    /// <param name="component">El componente para el cual calcular la
-    /// abstracción.</param>
-    /// <returns>Un valor entre 0 y 1 representando la proporción de tipos
-    /// abstractos clásicos.</returns>
-    /// <remarks>
-    /// Esta es una versión alternativa más restrictiva que solo cuenta:
-    /// <ul>
-    /// <li>Interfaces</li>
-    /// <li>Clases abstractas</li>
-    /// <li>Records abstractos</li>
-    /// </ul>
-    /// 
-    /// No incluye tipos genéricos. Úsala si prefieres la definición clásica de
-    /// Robert C. Martin sin considerar la extensibilidad por genéricos.
-    /// </remarks>
-    public static double CalculateAbstractnessClassic(Component component)
-    {
-        var totalTypes = component.Types.Count;
-
-        if (totalTypes == 0)
-            return 0;
-
-        var abstractTypes = component.Types.Count(t =>
-            t is Interface ||
-            (t is Class c && c.IsAbstract == true) ||
-            (t.IsAbstract && !(t is Interface)));  // Records abstractos y otros tipos abstractos
-
-        return (double)abstractTypes / totalTypes;
     }
 
     /// <summary>
