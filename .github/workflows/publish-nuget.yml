@@ -1,0 +1,54 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
+    
+    - name: Extract version from tag
+      id: version
+      run: |
+        VERSION=${{ github.ref_name }}
+        VERSION=${VERSION#v}
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+    
+    - name: Restore
+      run: dotnet restore src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
+    
+    - name: Pack
+      run: >
+        dotnet pack src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
+        --configuration Release
+        --no-restore
+        -p:VersionPrefix=${{ steps.version.outputs.version }}
+        -p:VersionSuffix=
+        --output ./nupkg
+    
+    - name: Publish to NuGet with Trusted Publishing
+      run: |
+        dotnet nuget add source https://api.nuget.org/v3/index.json \
+          --name nuget.org \
+          --username github \
+          --password ${{ secrets.GITHUB_TOKEN }} \
+          --store-password-in-clear-text
+        
+        dotnet nuget push ./nupkg/*.nupkg \
+          --source nuget.org \
+          --skip-duplicate \
+          --api-key ${{ secrets.GITHUB_TOKEN }}

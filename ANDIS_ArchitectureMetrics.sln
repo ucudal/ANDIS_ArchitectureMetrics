@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A8E5A9F3-8B1C-4D5A-8B2C-8D5A8B2C8D5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B9F6B0F4-9C2D-5E6B-9C3D-9E6B9C3D9E6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucu.Poo.ArchitectureMetrics", "src\Ucu.Poo.ArchitectureMetrics\Ucu.Poo.ArchitectureMetrics.csproj", "{C1A7C1A7-C1A7-C1A7-C1A7-C1A7C1A7C1A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucu.Poo.ArchitectureMetrics.Tests", "tests\Ucu.Poo.ArchitectureMetrics.Tests\Ucu.Poo.ArchitectureMetrics.Tests.csproj", "{D2B8D2B8-D2B8-D2B8-D2B8-D2B8D2B8D2B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1A7C1A7-C1A7-C1A7-C1A7-C1A7C1A7C1A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A7C1A7-C1A7-C1A7-C1A7-C1A7C1A7C1A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A7C1A7-C1A7-C1A7-C1A7-C1A7C1A7C1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A7C1A7-C1A7-C1A7-C1A7-C1A7C1A7C1A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2B8D2B8-D2B8-D2B8-D2B8-D2B8D2B8D2B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2B8D2B8-D2B8-D2B8-D2B8-D2B8D2B8D2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2B8D2B8-D2B8-D2B8-D2B8-D2B8D2B8D2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2B8D2B8-D2B8-D2B8-D2B8-D2B8D2B8D2B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
