@@ -47,11 +47,11 @@ jobs:
           echo "Version set to: ${VERSION}"
 
       - name: Restore
-        run: dotnet restore src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
+        run: dotnet restore src/Ucu.Andis.ArchitectureMetrics.csproj
 
       - name: Pack
         run: >
-          dotnet pack src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
+          dotnet pack src/Ucu.Andis.ArchitectureMetrics.csproj
           --configuration Release
           -p:VersionPrefix=${{ steps.version.outputs.version }}
           -p:VersionSuffix=
