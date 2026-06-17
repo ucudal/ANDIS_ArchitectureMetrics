@@ -12,14 +12,19 @@
     <PackageId>Ucu.Andis.ArchitectureMetrics</PackageId>
     <VersionPrefix>1.0.0</VersionPrefix>
     <VersionSuffix Condition="'$(CI)' != 'true'">local.$([System.DateTime]::UtcNow.ToString('yyyyMMddHHmmss'))</VersionSuffix>
-    <Authors>Universidad Católica del Uruguay (UCU)</Authors>
+    <Authors>fmachadopiriz</Authors>
     <Description>Librería .NET para calcular métricas de estabilidad arquitectónica basadas en los principios de Robert C. Martin. Incluye cálculo de acoplamiento aferente/eferente, abstracción, inestabilidad y distancia de secuencia principal.</Description>
     <PackageProjectUrl>https://github.com/ucudal/ANDIS_ArchitectureMetrics</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ucudal/ANDIS_ArchitectureMetrics</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>architecture;metrics;stability;clean-architecture;fan-in;fan-out;abstraction;instability</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="TngTech.ArchUnitNET" Version="0.13.3"/>
