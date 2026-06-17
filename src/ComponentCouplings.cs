@@ -1,4 +1,4 @@
-namespace Ucu.Andis.ArchitectureMetrics.Models;
+namespace Ucu.Andis.ArchitectureMetrics;
 
 /// <summary>
 /// Contiene el acoplamiento aferente -FanIn- y eferente -FanOut- para todos los

@@ -1,5 +1,5 @@
 using ArchUnitNET.Loader;
-using Ucu.Andis.ArchitectureMetrics.Calculators;
+using Ucu.Andis.ArchitectureMetrics;
 
 namespace Ucu.Andis.ArchitectureMetrics.Tests;
 
@@ -35,6 +35,8 @@ public class MetricsCalculatorExampleTests
 
         var assemblyName = typeof(MetricsCalculator).Assembly.GetName().Name;
 
+        Assert.That(assemblyName, Is.Not.Null); // Previene warning CS8604
+
         // Act
         var components = MetricsCalculator.BuildAssemblyComponents(
             architecture,
@@ -50,8 +52,8 @@ public class MetricsCalculatorExampleTests
     /// Demuestra cómo calcular métricas para componentes.
     /// </summary>
     /// <remarks>
-    /// Este test calcula métricas para un único componente y verifica que
-    /// las métricas se calcularon correctamente (abstracción entre 0 y 1, etc.).
+    /// Este test calcula métricas para un único componente y verifica que las
+    /// métricas se calcularon correctamente -abstracción entre 0 y 1, etc.-.
     /// </remarks>
     [Test]
     public void CanCalculateMetricsForComponent()
@@ -64,6 +66,8 @@ public class MetricsCalculatorExampleTests
             .Build();
 
         var assemblyName = typeof(MetricsCalculator).Assembly.GetName().Name;
+
+        Assert.That(assemblyName, Is.Not.Null); // Previene warning CS8604
 
         var components = MetricsCalculator.BuildAssemblyComponents(
             architecture,
@@ -88,8 +92,8 @@ public class MetricsCalculatorExampleTests
     /// Demuestra cómo interpretar las métricas calculadas.
     /// </summary>
     /// <remarks>
-    /// Este test muestra una tabla formateada de métricas, demostrando cómo interpretar
-    /// los valores para diferentes componentes.
+    /// Este test muestra una tabla formateada de métricas, demostrando cómo
+    /// interpretar los valores para diferentes componentes.
     /// </remarks>
     [Test]
     public void DisplayMetricsForLibrary()
@@ -102,6 +106,8 @@ public class MetricsCalculatorExampleTests
             .Build();
 
         var assemblyName = typeof(MetricsCalculator).Assembly.GetName().Name;
+
+        Assert.That(assemblyName, Is.Not.Null); // Previene warning CS8604
 
         var components = MetricsCalculator.BuildAssemblyComponents(
             architecture,

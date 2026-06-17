@@ -1,4 +1,4 @@
-namespace Ucu.Andis.ArchitectureMetrics.Models;
+namespace Ucu.Andis.ArchitectureMetrics;
 
 /// <summary>
 /// Contiene todas las métricas de estabilidad arquitectónica para un componente.
@@ -12,7 +12,7 @@ namespace Ucu.Andis.ArchitectureMetrics.Models;
 /// <remarks>
 /// Estas métricas son indicadores clave de la calidad arquitectónica según
 /// Robert C. Martin.
-/// 
+///
 /// La abstracción considera tipos abstractos y extensibles:
 /// <ul>
 /// <li>Interfaces</li>
@@ -20,7 +20,7 @@ namespace Ucu.Andis.ArchitectureMetrics.Models;
 /// <li>Records abstractos</li>
 /// <li>Tipos genéricos -extensibles vía parametrización-</li>
 /// </ul>
-/// 
+///
 /// Interpretación de métricas:
 /// <ul>
 /// <li>Inestabilidad -I- cercano a 0: Componente estable, resistente al

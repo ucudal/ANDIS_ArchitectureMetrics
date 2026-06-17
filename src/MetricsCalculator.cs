@@ -1,7 +1,6 @@
 using ArchUnitNET.Domain;
-using Ucu.Andis.ArchitectureMetrics.Models;
 
-namespace Ucu.Andis.ArchitectureMetrics.Calculators;
+namespace Ucu.Andis.ArchitectureMetrics;
 
 /// <summary>
 /// Calcula métricas de estabilidad arquitectónica para componentes basadas en

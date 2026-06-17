@@ -1,4 +1,4 @@
-namespace Ucu.Andis.ArchitectureMetrics.Models;
+namespace Ucu.Andis.ArchitectureMetrics;
 
 /// <summary>
 /// Representa las dependencias de un componente hacia otros componentes.

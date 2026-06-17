@@ -1,6 +1,6 @@
 using ArchUnitNET.Domain;
 
-namespace Ucu.Andis.ArchitectureMetrics.Models;
+namespace Ucu.Andis.ArchitectureMetrics;
 
 /// <summary>
 /// Representa un componente arquitectónico, agrupando tipos por ensamblado
