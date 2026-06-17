@@ -3,8 +3,13 @@ name: Publish NuGet Package
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*.*'
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Package version x.y (e.g. 1.0) - z auto-increments'
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -21,12 +26,29 @@ jobs:
       with:
         dotnet-version: '9.0.x'
 
-    - name: Extract version from tag
-      id: version
-      run: |
-        VERSION=${{ github.ref_name }}
-        VERSION=${VERSION#v}
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            BASE_VERSION=${GITHUB_REF_NAME#v}
+            PATCH=$(git rev-list --count "${GITHUB_REF_NAME}..HEAD" 2>/dev/null || echo "0")
+          else
+            BASE_VERSION=${{ inputs.version }}
+            if [[ -z "${BASE_VERSION}" ]]; then
+              echo "Error: version input is required for manual dispatch"
+              exit 1
+            fi
+            PATCH=${{ github.run_number }}
+          fi
+
+          if [[ -z "${BASE_VERSION}" ]]; then
+            echo "Error: BASE_VERSION is empty"
+            exit 1
+          fi
+
+          VERSION="${BASE_VERSION}.${PATCH}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Version set to: ${VERSION}"
 
     - name: Restore
       run: dotnet restore src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
@@ -35,7 +57,6 @@ jobs:
       run: >
         dotnet pack src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
         --configuration Release
-        --no-restore
         -p:VersionPrefix=${{ steps.version.outputs.version }}
         -p:VersionSuffix=
         --output ./nupkg
@@ -45,3 +66,10 @@ jobs:
         dotnet nuget push ./nupkg/*.nupkg \
           --source https://api.nuget.org/v3/index.json \
           --skip-duplicate
+
+      - name: Unlist package version on NuGet
+        run: >
+          dotnet nuget delete Ucu.Poo.Dbc ${{ steps.version.outputs.version }}
+          --api-key ${{ secrets.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --non-interactive
