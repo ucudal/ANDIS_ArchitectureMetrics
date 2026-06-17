@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj"/>
+    <ProjectReference Include="../../src/Ucu.Andis.ArchitectureMetrics/Ucu.Andis.ArchitectureMetrics.csproj"/>
   </ItemGroup>
 
 </Project>

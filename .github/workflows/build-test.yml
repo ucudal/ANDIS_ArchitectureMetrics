@@ -19,10 +19,10 @@ jobs:
         dotnet-version: '9.0.x'
 
     - name: Restoring dependencies...
-      run: dotnet restore ANDIS_ArchitectureMetrics.sln
+      run: dotnet restore Ucu.Andis.ArchitectureMetrics.sln
 
     - name: Building...
-      run: dotnet build ANDIS_ArchitectureMetrics.sln --configuration Release --no-restore
+      run: dotnet build Ucu.Andis.ArchitectureMetrics.sln --configuration Release --no-restore
 
     - name: Running tests...
-      run: dotnet test ANDIS_ArchitectureMetrics.sln --configuration Release --no-build --verbosity normal
+      run: dotnet test Ucu.Andis.ArchitectureMetrics.sln --configuration Release --no-build --verbosity normal

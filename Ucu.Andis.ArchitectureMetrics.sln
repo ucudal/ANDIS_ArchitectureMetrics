@@ -6,9 +6,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A8E5A9F3-8B1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B9F6B0F4-9C2D-5E6B-9C3D-9E6B9C3D9E6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucu.Poo.ArchitectureMetrics", "src\Ucu.Poo.ArchitectureMetrics\Ucu.Poo.ArchitectureMetrics.csproj", "{C1A7C1A7-C1A7-C1A7-C1A7-C1A7C1A7C1A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucu.Andis.ArchitectureMetrics", "src\Ucu.Andis.ArchitectureMetrics\Ucu.Andis.ArchitectureMetrics.csproj", "{C1A7C1A7-C1A7-C1A7-C1A7-C1A7C1A7C1A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucu.Poo.ArchitectureMetrics.Tests", "tests\Ucu.Poo.ArchitectureMetrics.Tests\Ucu.Poo.ArchitectureMetrics.Tests.csproj", "{D2B8D2B8-D2B8-D2B8-D2B8-D2B8D2B8D2B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ucu.Andis.ArchitectureMetrics.Tests", "tests\Ucu.Andis.ArchitectureMetrics.Tests\Ucu.Andis.ArchitectureMetrics.Tests.csproj", "{D2B8D2B8-D2B8-D2B8-D2B8-D2B8D2B8D2B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

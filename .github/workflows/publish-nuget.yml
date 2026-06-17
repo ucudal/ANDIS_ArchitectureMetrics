@@ -57,14 +57,12 @@ jobs:
           -p:VersionSuffix=
           --output ./nupkg
 
-      # Get a short-lived NuGet API key
-      - name: NuGet login (OIDC → temp API key)
+      - name: Get short-lived NuGet API key
         uses: NuGet/login@v1
         id: login
         with:
           user: ${{ secrets.NUGET_USER }}
 
-      # Push the package
       - name: NuGet push
         run: >
           dotnet nuget push ./nupkg/*.nupkg
@@ -73,7 +71,7 @@ jobs:
 
       - name: Unlist package version on NuGet
         run: >
-          dotnet nuget delete Ucu.Poo.ArchitectureMetrics ${{ steps.version.outputs.version }}
+          dotnet nuget delete Ucu.Andis.ArchitectureMetrics ${{ steps.version.outputs.version }}
           --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
           --source https://api.nuget.org/v3/index.json
           --non-interactive
