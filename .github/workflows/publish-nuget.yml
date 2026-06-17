@@ -64,15 +64,17 @@ jobs:
           -p:VersionSuffix=
           --output ./nupkg
 
+      - name: Get OIDC Token for NuGet
+        id: oidc_token
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const token = await core.getIDToken('https://api.nuget.org')
+            core.setOutput('token', token)
+
       - name: Publish to NuGet with Trusted Publishing
         run: |
           dotnet nuget push ./nupkg/*.nupkg \
+            --api-key ${{ steps.oidc_token.outputs.token }} \
             --source https://api.nuget.org/v3/index.json \
             --skip-duplicate
-
-      - name: Unlist package version on NuGet
-        run: >
-          dotnet nuget delete Ucu.Poo.Dbc ${{ steps.version.outputs.version }}
-          --api-key ${{ secrets.NUGET_API_KEY }}
-          --source https://api.nuget.org/v3/index.json
-          --non-interactive
