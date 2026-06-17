@@ -66,5 +66,14 @@ jobs:
 
       # Push the package
       - name: NuGet push
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+        run: >
+          dotnet nuget push ./nupkg/*.nupkg
+          --api-key ${{steps.login.outputs.NUGET_API_KEY}}
+          --source https://api.nuget.org/v3/index.json
 
+      - name: Unlist package version on NuGet
+        run: >
+          dotnet nuget delete Ucu.Poo.ArchitectureMetrics ${{ steps.version.outputs.version }}
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --non-interactive
