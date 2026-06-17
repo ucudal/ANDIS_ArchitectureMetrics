@@ -19,12 +19,15 @@ jobs:
       id-token: write
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '9.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
 
       - name: Determine version
         id: version
@@ -50,22 +53,22 @@ jobs:
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "Version set to: ${VERSION}"
 
-    - name: Restore
-      run: dotnet restore src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
+      - name: Restore
+        run: dotnet restore src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
 
-    - name: Pack
-      run: >
-        dotnet pack src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
-        --configuration Release
-        -p:VersionPrefix=${{ steps.version.outputs.version }}
-        -p:VersionSuffix=
-        --output ./nupkg
+      - name: Pack
+        run: >
+          dotnet pack src/Ucu.Poo.ArchitectureMetrics/Ucu.Poo.ArchitectureMetrics.csproj
+          --configuration Release
+          -p:VersionPrefix=${{ steps.version.outputs.version }}
+          -p:VersionSuffix=
+          --output ./nupkg
 
-    - name: Publish to NuGet with Trusted Publishing
-      run: |
-        dotnet nuget push ./nupkg/*.nupkg \
-          --source https://api.nuget.org/v3/index.json \
-          --skip-duplicate
+      - name: Publish to NuGet with Trusted Publishing
+        run: |
+          dotnet nuget push ./nupkg/*.nupkg \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
 
       - name: Unlist package version on NuGet
         run: >
