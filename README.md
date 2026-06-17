@@ -1,23 +1,53 @@
-# ANDIS Architecture Metrics
+<!-- markdownlint-disable MD033 MD041 -->
+<img alt="UCU" src="./assets/logo_ucu.svg" width="150"/>
+<!-- markdownlint-enable MD033 MD041 -->
 
-Librería .NET para calcular métricas de estabilidad arquitectónica basadas en los principios de análisis de arquitectura de Robert C. Martin.
+# Universidad Católica del Uruguay
 
-## Descripción General
+## Facultad de Ingeniería y Tecnologías
 
-Esta librería proporciona herramientas para analizar y medir la estabilidad y calidad de su arquitectura de software usando ArchUnit. Calcula métricas clave como:
+### Análisis y diseño de aplicaciones I y II
 
-- **Fan-In (Ca)**: Acoplamiento aferente - cuántos componentes dependen de este
-- **Fan-Out (Ce)**: Acoplamiento eferente - de cuántos componentes este depende
-- **Abstractness (A)**: Proporción de tipos abstractos o extensibles (interfaces, clases abstractas, records abstractos, tipos genéricos)
-- **Instability (I)**: Medida de qué tan susceptible es el componente al cambio (I = Ce / (Ca + Ce))
-- **Distance (D)**: Distancia de la Secuencia Principal (D = |A + I - 1|)
+# ArchitectureMetrics: Librería para calcular métricas de arquitectura
 
-## Estructura del Proyecto
+![Build
+status](https://github.com/ucudal/ANDIS_ArchitectureMetrics/actions/workflows/build-test.yml/badge.svg)
+[![Descargar desde
+NuGet](https://img.shields.io/badge/NuGet-Ucu.Andis.ArchitectureMetrics-004880?logo=nuget)](https://www.nuget.org/packages/Ucu.Andis.ArchitectureMetrics/)
 
-```
+Esta librería .NET permite calcular las siguientes métricas de arquitectura
+basadas en los principios definidos por Robert C. Martin en Clean Architecture-A
+Craftsman's Guide to Software:
+
+## Descripción general
+
+Esta librería proporciona herramientas para analizar y medir la estabilidad y
+calidad de su arquitectura de software usando
+[ArchUnit](https://archunitnet.readthedocs.io/en/stable/). Calcula las
+siguientes métricas, para cada componente -donde en este contexto componente es
+un ensamblado-:
+
+- **Fan-In**: Acoplamiento aferente - cuántos componentes dependen del
+  componente dado
+
+- **Fan-Out**: Acoplamiento eferente - de cuántos componentes este depende
+  un componente dado
+
+- **Abstractness**: Proporción de tipos abstractos o extensibles
+  -interfaces, clases abstractas, registros abstractos, tipos genéricos-
+  respecto del total de tipos
+
+- **Instability**: Medida de qué tan susceptible es el componente al cambio
+  (I = Ce / (Ca + Ce))
+
+- **Distance**: Distancia de la secuencia principal (D = |A + I - 1|)
+
+## Estructura del proyecto
+
+```text
 ANDIS_ArchitectureMetrics/
 ├── src/
-│   └── Ucu.Andis.ArchitectureMetrics/          # Librería principal
+│   └── Ucu.Andis.ArchitectureMetrics/           # Librería principal
 │       ├── Models/                              # Modelos de datos
 │       │   ├── Component.cs                     # Definición de componente
 │       │   ├── ComponentMetrics.cs              # Contenedor de métricas
@@ -27,7 +57,7 @@ ANDIS_ArchitectureMetrics/
 │           └── MetricsCalculator.cs             # Calculador principal
 │
 ├── tests/
-│   └── Ucu.Andis.ArchitectureMetrics.Tests/    # Suite de tests
+│   └── Ucu.Andis.ArchitectureMetrics.Tests/     # Casos de prueba
 │
 ├── docs/                                        # Documentación
 ├── README.md                                    # Este archivo
@@ -36,7 +66,7 @@ ANDIS_ArchitectureMetrics/
 
 ## Uso
 
-### Uso Básico
+### Uso básico
 
 ```csharp
 using Ucu.Andis.ArchitectureMetrics;
@@ -106,12 +136,10 @@ Valores:
 
 ## Requisitos
 
-- .NET 9.0 o posterior
+- .NET 8.0 o posterior
 - TngTech.ArchUnitNET 0.13.3 o compatible
 
-## Instalación
-
-### Desde NuGet (Recomendado)
+## Instalación desde NuGet
 
 ```bash
 dotnet add package Ucu.Andis.ArchitectureMetrics
@@ -125,19 +153,13 @@ O en tu archivo `.csproj`:
 </ItemGroup>
 ```
 
-### Desde Proyecto Local
-
-```bash
-dotnet add reference /path/to/Ucu.Andis.ArchitectureMetrics/Ucu.Andis.ArchitectureMetrics.csproj
-```
-
 ## Compilación
 
 ```bash
 dotnet build
 ```
 
-## Ejecutar Tests
+## Ejecutar tests
 
 ```bash
 dotnet test
@@ -145,35 +167,39 @@ dotnet test
 
 ## Publicación
 
-El paquete NuGet se publica automáticamente al crear un tag de versión en GitHub. Para más detalles, consulte [PUBLISHING.md](PUBLISHING.md).
+Los números de versión tienen la forma `x.y.z` donde `x.y` lo indica el
+desarrollador y `z` se incrementa automáticamente. La publicación del paquete es
+a través de una [GitHub Action](.github/workflows/publish-nuget.yml).
 
-### Publicar una Nueva Versión
+### Ejecución automática
+
+Esta acción se ejecuta automáticamente de la siguiente forma:
 
 ```bash
-git tag v1.0.1
-git push origin v1.0.1
+git tag v0.0
+git push origin v0.0
 ```
 
-El workflow de GitHub Actions se encargará del resto.
+donde `0.0` es el número de versión deseado.
+
+En caso de que el tag ya exista, eliminarlo primero con:
+
+```bash
+git tag -d v0.0
+git push origin --delete v0.0
+```
+
+### Ejecución manual
+
+La acción se puede ejecutar manualmente. En el momento de ejecutarla va a pedir
+el numero de versión `0.0`.
 
 ## Documentación
 
-La documentación de la API se genera usando Doxygen. Consulte la carpeta `docs/` para documentación detallada.
+La documentación de la API se genera usando Doxygen. Consulte la carpeta `docs/`
+para documentación detallada.
 
 ## Referencias
 
 - Libro de Arquitectura de Robert C. Martin: "Clean Architecture"
 - ArchUnit: <https://www.archunit.org/>
-- Métricas de Estabilidad y Distancia: <https://en.wikipedia.org/wiki/Architecture_metric>
-
-## Licencia
-
-Consulte el archivo LICENSE para más detalles.
-
-## Contribuciones
-
-Las contribuciones son bienvenidas. Por favor asegúrese de:
-
-- El código sigue los principios de clean architecture
-- Se incluyen tests para nuevas características
-- Se actualiza la documentación según corresponda
