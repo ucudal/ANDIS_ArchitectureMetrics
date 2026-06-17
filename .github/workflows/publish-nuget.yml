@@ -24,6 +24,27 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Normalize tag to x.y.z format
+        if: github.ref_type == 'tag'
+        run: |
+          CURRENT_TAG=${{ github.ref_name }}
+          TAG_WITHOUT_V=${CURRENT_TAG#v}
+          DOT_COUNT=$(echo "$TAG_WITHOUT_V" | tr -cd '.' | wc -c)
+          
+          # Si tiene solo 1 punto (v1.0), agregar .0 (v1.0.0)
+          if [[ $DOT_COUNT -eq 1 ]]; then
+            NEW_TAG="v${TAG_WITHOUT_V}.0"
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git tag -d "$CURRENT_TAG"
+            git tag "$NEW_TAG"
+            git push origin :refs/tags/"$CURRENT_TAG" 2>/dev/null || true
+            git push origin "$NEW_TAG"
+            echo "Tag renamed: $CURRENT_TAG -> $NEW_TAG"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
