@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Package version x.y (e.g. 1.0) - z auto-increments'
+        description: 'Enter package version x.y, e.g. 1.0, for x.y.z, where z auto-increments'
         required: true
         type: string
 
@@ -27,7 +27,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
 
       - name: Determine version
         id: version
