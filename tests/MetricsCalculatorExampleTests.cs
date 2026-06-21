@@ -117,7 +117,7 @@ public class MetricsCalculatorExampleTests
         var metrics = MetricsCalculator.CalculateMetrics(components);
 
         // Assert & Display
-        TestContext.Out.WriteLine("\n=== Métricas de Componentes ===");
+        TestContext.Out.WriteLine("\n=== Métricas de componentes ===");
         TestContext.Out.WriteLine(
             "{0,-40} {1,6} {2,6} {3,11} {4,12} {5,10}",
             "Componente", "FanIn", "FanOut", "Abstracción", "Inestabilidad", "Distancia");
