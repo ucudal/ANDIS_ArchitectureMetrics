@@ -14,33 +14,45 @@
 status](https://github.com/ucudal/ANDIS_ArchitectureMetrics/actions/workflows/build-test.yml/badge.svg)
 [![Descargar desde
 NuGet](https://img.shields.io/badge/NuGet-Ucu.Andis.ArchitectureMetrics-004880?logo=nuget)](https://www.nuget.org/packages/Ucu.Andis.ArchitectureMetrics/)
+[![Deploy to
+Pages](https://github.com/ucudal/ANDIS_CleanArchitecture_Demo/actions/workflows/pages.yaml/badge.svg)](https://github.com/ucudal/ANDIS_CleanArchitecture_Demo/actions/workflows/pages.yaml)
 
-Esta librería .NET permite calcular las siguientes métricas de arquitectura
-basadas en los principios definidos por Robert C. Martin en Clean Architecture-A
-Craftsman's Guide to Software:
-
-## Descripción general
+> [!IMPORTANT]
+> La 📖 documentación de esta librería está publicada
+> [aquí](https://ucudal.github.io/ANDIS_ArchitectureMetrics/).
 
 Esta librería proporciona herramientas para analizar y medir la estabilidad y
-calidad de su arquitectura de software usando
-[ArchUnit](https://archunitnet.readthedocs.io/en/stable/). Calcula las
-siguientes métricas, para cada componente -donde en este contexto componente es
-un ensamblado-:
+calidad de una arquitectura de software, utilizando las [métricas y
+principios](http://objectmentor.com/resources/articles/stability.pdf) definidos
+por Robert C. Martin, usando
+[ArchUnit](https://archunitnet.readthedocs.io/en/stable/).
 
-- **Fan-In**: Acoplamiento aferente - cuántos componentes dependen del
-  componente dado
+Para cada componente -donde en este contexto componente es
+un ensamblado- calcula las siguientes métricas:
 
-- **Fan-Out**: Acoplamiento eferente - de cuántos componentes este depende
-  un componente dado
+* **Fan-in** o **acoplamiento aferente**: cuántos otros componentes dependen del
+  componente dado.
 
-- **Abstractness**: Proporción de tipos abstractos o extensibles
+* **Fan-out** o **acoplamiento eferente**: de cuántos otros componentes depende
+  un componente dado.
+
+* **Abstractness**: Proporción de tipos abstractos o extensibles
   -interfaces, clases abstractas, registros abstractos, tipos genéricos-
   respecto del total de tipos
 
-- **Instability**: Medida de qué tan susceptible es el componente al cambio
-  (I = Ce / (Ca + Ce))
+* **Instability**: Medida de qué tan susceptible es el componente al cambio
+  $I = \frac{Ce}{Ca + Ce}$
 
-- **Distance**: Distancia de la secuencia principal (D = |A + I - 1|)
+* **Distance**: Distancia de la secuencia principal $D = |A + I - 1|$
+
+<!-- markdownlint-disable MD032 -->
+> [!NOTE]
+> Para el cálculo de las métricas de abstracción se consideran tipos abstractos:
+> * Interfaces `interface`
+> * Clases abstractas `abstract class`
+> * Records abstractos `abstract record`
+> * Tipos genéricos `class<T>`
+<!-- markdownlint-enable MD032 -->
 
 ## Estructura del proyecto
 
@@ -65,8 +77,6 @@ ANDIS_ArchitectureMetrics/
 ```
 
 ## Uso
-
-### Uso básico
 
 ```csharp
 using Ucu.Andis.ArchitectureMetrics;
@@ -105,34 +115,6 @@ foreach (var metric in metrics)
     Console.WriteLine($"  Distance: {metric.Distance:F4}");
 }
 ```
-
-### Interpretación de Métricas
-
-**Inestabilidad (I)**
-
-- I ≈ 0: Componente estable (dependendido, poca dependencia de otros)
-- I ≈ 1: Componente inestable (depende de muchos otros)
-- Lo ideal depende del rol del componente (el dominio central debe ser estable)
-
-**Abstractness (A)**
-
-Se consideran tipos abstractos/extensibles:
-
-- Interfaces - contrato sin implementación
-- Clases abstractas - contrato parcial
-- Records abstractos - registros con implementación parcial
-- Tipos genéricos - extensibles vía parametrización de tipos
-
-Valores:
-
-- A = 0: Puramente concreto (solo clases y records concretos no genéricos)
-- A = 1: Puramente abstracto (interfaces, clases abstractas, records abstractos)
-- A > 0: Flexible para extensión
-
-**Distance (D)**
-
-- D ≈ 0 o 1: En la secuencia principal (bien balanceado)
-- D ≈ 0.5: Fuera de la secuencia principal (posibles problemas de diseño)
 
 ## Requisitos
 
@@ -199,7 +181,7 @@ el numero de versión `0.0`.
 La documentación de la API se genera usando Doxygen. Consulte la carpeta `docs/`
 para documentación detallada.
 
-## Referencias
-
-- Libro de Arquitectura de Robert C. Martin: "Clean Architecture"
-- ArchUnit: <https://www.archunit.org/>
+```bash
+cd docs
+doxygen
+```
