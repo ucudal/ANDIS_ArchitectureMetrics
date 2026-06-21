@@ -20,12 +20,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
       - name: Install Doxygen and Graphviz
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
       - name: Generate Documentation
         run: cd docs && doxygen Doxyfile
       - name: Copy doxygen-awesome files
         run: cp -r doxygen-awesome-css/doxygen-awesome*.{css,js} docs/html/
+      - name: Disable Jekyll processing
+        run: touch docs/html/.nojekyll
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
