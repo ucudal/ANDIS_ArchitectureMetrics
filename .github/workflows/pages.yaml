@@ -22,8 +22,23 @@ jobs:
           submodules: recursive
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-      - name: Install Doxygen and Graphviz
-        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+
+      - name: Install Doxygen 1.17.0
+        run: |
+          wget -q https://github.com/doxygen/doxygen/releases/download/Release_1_17_0/doxygen-1.17.0.linux.bin.tar.gz
+          tar -xzf doxygen-1.17.0.linux.bin.tar.gz
+          sudo mv doxygen-1.17.0/bin/doxygen /usr/local/bin/doxygen
+
+      - name: Install Graphviz 15.0.0 (precompiled .deb)
+        run: |
+          wget -q https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/15.0.0/ubuntu_24_04_graphviz_15.0.0_amd64.deb
+          sudo apt-get install -y ./ubuntu_24_04_graphviz_15.0.0_amd64.deb
+
+      - name: Verify versions
+        run: |
+          doxygen --version
+          dot -V
+
       - name: Generate Documentation
         run: cd docs && doxygen Doxyfile
       - name: Copy doxygen-awesome files
