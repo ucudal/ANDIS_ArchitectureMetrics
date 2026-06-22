@@ -1,14 +1,9 @@
-![Build
-status](https://github.com/ucudal/ANDIS_ArchitectureMetrics/actions/workflows/build-test.yml/badge.svg)
-[![Descargar desde
-NuGet](https://img.shields.io/badge/NuGet-Ucu.Andis.ArchitectureMetrics-004880?logo=nuget)](https://www.nuget.org/packages/Ucu.Andis.ArchitectureMetrics/)
-
 # Introducción
 
 Esta librería proporciona herramientas para analizar y medir la estabilidad y
 calidad de una arquitectura de software, utilizando las [métricas y
 principios](http://objectmentor.com/resources/articles/stability.pdf) definidos
-por Robert C. Martin, usando
+por Robert C. Martin. La biblioteca está implementada usando
 [ArchUnit](https://archunitnet.readthedocs.io/en/stable/).
 
 Para cada componente -donde en este contexto componente es

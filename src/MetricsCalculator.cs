@@ -8,16 +8,17 @@ namespace Ucu.Andis.ArchitectureMetrics;
 /// </summary>
 /// <remarks>
 /// Esta calculadora implementa las métricas de arquitectura de Robert C. Martin:
-/// - Fan-In -Ca-: Acoplamiento aferente
-/// - Fan-Out -Ce-: Acoplamiento eferente
-/// - Abstacción -A-: Proporción de tipos abstractos
-/// - Inestabilidad -I-: Indicador de estabilidad -Ce / (Ca + Ce)-
-/// - Distancia -D-: Distancia de la secuencia principal -|A + I - 1|-
+/// - Ca: Fan-in o acoplamiento aferente
+/// - Ce: Fan-out o acoplamiento eferente
+/// - A: Abstacción; proporción de tipos abstractos
+/// - I: Inestabilidad; indicador de estabilidad, como $I = \frac{Ce}{Ca + Ce}$
+/// - D: Distancia; distancia de la secuencia principal, como $D = |A + I - 1|$
 /// </remarks>
 public static class MetricsCalculator
 {
     /// <summary>
-    /// Construye una colección de componentes agrupando tipos por assembly.
+    /// Construye una colección de instancias de <c>Component</c> agrupando
+    /// tipos por ensamblado.
     /// </summary>
     /// <param name="architecture">La arquitectura cargada a analizar.</param>
     /// <param name="assemblyNames">Los nombres de los ensamblados a agrupar
@@ -45,7 +46,7 @@ public static class MetricsCalculator
     }
 
     /// <summary>
-    /// Construye un grafo de dependencias entre componentes.
+    /// Construye un grafo de dependencias entre instancias de <c>Component</c>.
     /// </summary>
     /// <param name="components">Los componentes para los cuales construir el
     /// grafo.</param>
@@ -54,7 +55,7 @@ public static class MetricsCalculator
     /// de los que depende.</returns>
     /// <remarks>
     /// El grafo resultante se utiliza para calcular acoplamiento aferente
-    /// -Fan-in- y eferente -Fan-out-. Solo se incluyen dependencias externas al
+    /// -fan-in- y eferente -fan-out-. Solo se incluyen dependencias externas al
     /// componente -se ignoran dependencias internas-. Cuentan como
     /// dependencias:
     /// <ul>
@@ -107,7 +108,7 @@ public static class MetricsCalculator
     }
 
     /// <summary>
-    /// Calcula el acoplamiento aferente -Fan-in- y eferente -Fan-out- para
+    /// Calcula el acoplamiento aferente -fan-in- y eferente -fan-out- para
     /// todos los componentes.
     /// </summary>
     /// <param name="graph">El grafo de dependencias entre componentes.</param>
@@ -117,8 +118,8 @@ public static class MetricsCalculator
     /// FanIn: Cuántos otros componentes dependen de este.
     /// FanOut: De cuántos otros componentes este depende.
     ///
-    /// Estos valores son necesarios para calcular la inestabilidad -I = FanOut
-    /// / (FanIn + FanOut)-.
+    /// Estos valores son necesarios para calcular la inestabilidad, como $I =
+    /// \frac{Ce}{Ca + Ce}$.
     /// </remarks>
     public static ComponentCouplings CalculateCouplings(
         IReadOnlyCollection<ComponentDependencies> graph)
@@ -143,7 +144,7 @@ public static class MetricsCalculator
     }
 
     /// <summary>
-    /// Calcula la abstracción (A) de un componente.
+    /// Calcula la abstracción —A— de una instancia de <c>Component</c>.
     /// </summary>
     /// <param name="component">El componente para el cual calcular la
     /// abstracción.</param>
